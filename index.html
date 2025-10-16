@@ -9,14 +9,16 @@
         <main id="mainContainer">
 
         </main>
-        <div id="formDiv">
+        <div id="formDiv" class="div-style">
             <div>
                 <img src="/images/avatars/image-juliusomo.png">
             </div>
-             <form action="myform.php" method="post">
-                <div>
+             <form action="myform.php" method="post" id="myform" class="div-style">
+                <div id="textareaDiv">
                     <textarea placeholder="add a comment" id="getInput"></textarea>
-                    <button type="submit">SEND</button>
+                </div>
+                <div>
+                    <button type="submit" id="submit-button">SEND</button>
                 </div>
             </form>
         </div>

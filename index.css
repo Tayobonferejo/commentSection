@@ -58,10 +58,33 @@ body {
 }
 
 #formDiv {
-  display: flex;
-  align-items: center;
-
   width: 60%;
   margin: auto;
-  border: 2px solid black;
+  border: 2px solid rgb(187, 24, 24);
+}
+
+.div-style {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+
+#myform {
+  width: 80%;
+}
+
+#textareaDiv {
+   width: 90%;
+}
+
+#getInput {
+  width: 100%;
+  height: 40px;
+  border: none;
+  padding: 2rem 0;
+}
+
+#submit-button {
+
 }
