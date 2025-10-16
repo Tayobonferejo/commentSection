@@ -53,6 +53,15 @@ body {
     flex-direction: column;
 }
 
-.profile > img  {
+.profile > img , #formDiv img {
     width: 40px;
+}
+
+#formDiv {
+  display: flex;
+  align-items: center;
+
+  width: 60%;
+  margin: auto;
+  border: 2px solid black;
 }
