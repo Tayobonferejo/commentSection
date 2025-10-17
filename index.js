@@ -158,3 +158,64 @@ commentContainer.addEventListener("click", (event) => {
     card.remove(); // deletes the entire comment card
   }
 });
+
+
+// 🧩 Handle reply button clicks dynamically
+commentContainer.addEventListener("click", (event) => {
+  const replyButton = event.target.closest(".replyBtn");
+  if (!replyButton) return;
+
+  const card = replyButton.closest(".card");
+
+  // Prevent multiple reply boxes under the same comment
+  if (card.querySelector(".reply-box")) return;
+
+  // Create reply box container
+  const replyBox = document.createElement("div");
+  replyBox.className = "reply-box";
+  replyBox.innerHTML = `
+    <textarea class="reply-input" placeholder="Write a reply..."></textarea>
+    <button class="send-reply-btn">Send</button>
+  `;
+
+  // Insert reply box right below the comment
+  card.appendChild(replyBox);
+});
+
+// 📨 Handle sending replies
+commentContainer.addEventListener("click", (event) => {
+  const sendBtn = event.target.closest(".send-reply-btn");
+  if (!sendBtn) return;
+
+  const replyBox = sendBtn.closest(".reply-box");
+  const replyText = replyBox.querySelector(".reply-input").value.trim();
+  const card = sendBtn.closest(".card");
+
+  if (replyText === "") {
+    alert("Please enter your reply!");
+    return;
+  }
+
+  // ✅ Create reply container
+  const replyCard = document.createElement("div");
+  replyCard.className = "reply-card";
+  replyCard.innerHTML = `
+    <div class="profile-card">
+      <div class="profile">
+        <img src="/images/avatars/image-juliusomo.png" alt="You">
+        <div class="name">juliusomo</div>
+        <div>now</div>
+      </div>
+    </div>
+    <p class="content">${replyText}</p>
+  `;
+
+  // Append reply under this comment
+  card.appendChild(replyCard);
+
+  // Clear reply box
+  replyBox.remove();
+
+  // (Optional) Save state
+  localStorage.setItem("commentContainerHTML", commentContainer.innerHTML);
+});
