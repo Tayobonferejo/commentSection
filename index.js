@@ -20,7 +20,7 @@ async function loadComment() {
       const card = document.createElement("div");
       card.className = "card";
       card.innerHTML = `
-        <div class="card-header">
+        <div class="card-header main-comment">
             <div>
                 <div class="profile-card">
                     <div class="profile">
