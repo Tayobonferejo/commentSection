@@ -62,7 +62,7 @@ myForm.addEventListener("click", function(event) {
     const cardReply = document.createElement("div");
     cardReply.className = "card";
     cardReply.innerHTML = `
-      <div class="card-header">
+      <div class="card-header reply-header">
           <div>
               <div class="profile-card">
                   <div class="profile">

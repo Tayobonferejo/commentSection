@@ -18,7 +18,7 @@ body {
 } */
 
 
-.main-comment {
+.main-comment, .reply-header {
   margin-top: 0.8rem;
   background: #fff;
   padding: 1rem;
@@ -101,6 +101,7 @@ body {
   padding: 1rem;
   border: 2px solid rgb(200, 202, 218);
   border-radius: 3px;
+  resize: none;
 }
 
 #submit-button {
