@@ -1,6 +1,9 @@
+
+const commentContainer = document.getElementById("mainContainer");
+const myForm = document.getElementById("submit-button");
+
 async function loadComment() {
   try {
-    // Step 1: Check localStorage
     let data = JSON.parse(localStorage.getItem("comment"));
 
     if (!data) {
@@ -11,11 +14,8 @@ async function loadComment() {
       localStorage.setItem("comment", JSON.stringify(data));
     }
 
-    const commentContainer = document.getElementById("mainContainer");
     commentContainer.innerHTML = ""; // clear old items
 
-
-    // Step 2: Loop through comments
     data.comments.forEach(comment => {
       const card = document.createElement("div");
       card.className = "card";
@@ -30,69 +30,131 @@ async function loadComment() {
                     </div>
                     <div>
                         <img src="/images/icon-reply.svg" alt="reply">
-                        <p><a href="#">reply</a></p>
+                        <p><a href="#" class="replyBtn">reply</a></p>
                     </div>
                 </div>
                 <p class="content">${comment.content}</p>
             </div>
             <div class="upvote">
-                <div>
-                    <img src="/images/icon-plus.svg" alt="reply">
-                </div>
+                <div><img src="/images/icon-plus.svg" alt="reply"></div>
                 <div class="score">${comment.score}</div>
-                <div>
-                    <img src="/images/icon-minus.svg" alt="reply">
-                </div>
+                <div><img src="/images/icon-minus.svg" alt="reply"></div>
             </div>
         </div>
-
-    
       `;
-
-      // append to container
       commentContainer.appendChild(card);
-
-      // Handle replies (if any)
-      if (comment.replies && comment.replies.length > 0) {
-        comment.replies.forEach(reply => {
-          const replyCard = document.createElement("div");
-          replyCard.className = "card";
-          replyCard.style.marginLeft = "2rem";
-          replyCard.innerHTML = `
-           <div class="card-header">
-            <div>
-                <div class="profile-card">
-                    <div class="profile">
-                        <img src="${reply.user.image.png}" alt="${reply.user.username}">
-                        <div class="name">${reply.user.username}</div>
-                        <div>${reply.createdAt}</div>
-                    </div>
-                    <div>
-                        <img src="/images/icon-reply.svg" alt="reply">
-                        <p><a href="#">reply</a></p>
-                    </div>
-                </div>
-                <p class="content">${reply.content}</p>
-            </div>
-            <div class="upvote">
-                <div>
-                    <img src="/images/icon-plus.svg" alt="reply">
-                </div>
-                <div class="score">${reply.score}</div>
-                <div>
-                    <img src="/images/icon-minus.svg" alt="reply">
-                </div>
-            </div>
-        </div>
-          `;
-          commentContainer.appendChild(replyCard);
-        });
-      }
     });
-
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
 
 loadComment();
+
+// 🧩 Add new comment
+myForm.addEventListener("click", function(event) {
+  event.preventDefault();
+  const getUserComment = document.getElementById("getInput").value;
+
+  if (getUserComment === "") {
+    alert("Enter your comment");
+  } else {
+    const cardReply = document.createElement("div");
+    cardReply.className = "card";
+    cardReply.innerHTML = `
+      <div class="card-header">
+          <div>
+              <div class="profile-card">
+                  <div class="profile">
+                      <img src="/images/avatars/image-juliusomo.png" alt="image-juliusomo">
+                      <div class="name">juliusomo</div>
+                      <div>now</div>
+                  </div>
+                  <div class="menu-div">
+                      <div class="menu">
+                          <img src="/images/icon-delete.svg" alt="delete">
+                          <p><a href="#" class="deleteBtn">delete</a></p>
+                      </div>
+                      <div class="menu">
+                          <img src="/images/icon-edit.svg" alt="edit">
+                          <p><a href="#" class="editBtn">edit</a></p>
+                      </div>
+                  </div>
+              </div>
+              <p class="content">${getUserComment}</p>
+          </div>
+          <div class="upvote">
+              <div><img src="/images/icon-plus.svg" alt="reply"></div>
+              <div class="score">0</div>
+              <div><img src="/images/icon-minus.svg" alt="reply"></div>
+          </div>
+      </div>
+    `;
+
+    commentContainer.appendChild(cardReply);
+    document.getElementById("getInput").value = ""; // clear textarea
+  }
+});
+
+
+
+
+// ✅ Inline Edit Handler — works for dynamically added comments too
+commentContainer.addEventListener("click", (event) => {
+  const editButton = event.target.closest(".editBtn");
+  if (!editButton) return; // not clicking an edit button
+
+  const card = editButton.closest(".card");
+  const content = card.querySelector(".content");
+  if (!content) return;
+
+  // Prevent duplicate textareas
+  if (card.querySelector("textarea")) return;
+
+  // Create editable textarea
+  const textarea = document.createElement("textarea");
+  textarea.className = "edit-textarea";
+  textarea.value = content.textContent.trim();
+
+  // Replace the <p> with <textarea>
+  content.replaceWith(textarea);
+
+  // Create update button
+  const updateBtn = document.createElement("button");
+  updateBtn.textContent = "Update";
+  updateBtn.className = "updateBtn";
+  textarea.after(updateBtn);
+
+  // Save new text when clicking "Update"
+  updateBtn.addEventListener("click", () => {
+    const newText = textarea.value.trim();
+    if (newText === "") {
+      alert("Comment cannot be empty!");
+      return;
+    }
+
+    // Create new <p> and replace textarea
+    const newContent = document.createElement("p");
+    newContent.className = "content";
+    newContent.textContent = newText;
+
+    textarea.replaceWith(newContent);
+    updateBtn.remove();
+
+    // (Optional) Save the updated comments
+    localStorage.setItem("commentContainerHTML", commentContainer.innerHTML);
+  });
+});
+
+
+
+
+commentContainer.addEventListener("click", (event) => {
+  const deleteButton = event.target.closest(".deleteBtn");
+  if (!deleteButton) return; // if not a delete button, do nothing
+
+  const card = deleteButton.closest(".card");
+  if (card) {
+    card.remove(); // deletes the entire comment card
+  }
+});
