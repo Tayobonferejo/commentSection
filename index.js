@@ -200,14 +200,33 @@ commentContainer.addEventListener("click", (event) => {
   const replyCard = document.createElement("div");
   replyCard.className = "reply-card";
   replyCard.innerHTML = `
-    <div class="profile-card">
-      <div class="profile">
-        <img src="/images/avatars/image-juliusomo.png" alt="You">
-        <div class="name">juliusomo</div>
-        <div>now</div>
+    <div class="card-header">
+          <div>
+              <div class="profile-card">
+                  <div class="profile">
+                      <img src="/images/avatars/image-juliusomo.png" alt="image-juliusomo">
+                      <div class="name">juliusomo</div>
+                      <div>now</div>
+                  </div>
+                  <div class="menu-div">
+                      <div class="menu">
+                          <img src="/images/icon-delete.svg" alt="delete">
+                          <p><a href="#" class="deleteBtn">delete</a></p>
+                      </div>
+                      <div class="menu">
+                          <img src="/images/icon-edit.svg" alt="edit">
+                          <p><a href="#" class="editBtn">edit</a></p>
+                      </div>
+                  </div>
+              </div>
+              <p class="content">${replyText}</p>
+          </div>
+          <div class="upvote">
+              <div><img src="/images/icon-plus.svg" alt="reply"></div>
+              <div class="score">0</div>
+              <div><img src="/images/icon-minus.svg" alt="reply"></div>
+          </div>
       </div>
-    </div>
-    <p class="content">${replyText}</p>
   `;
 
   // Append reply under this comment
@@ -219,3 +238,6 @@ commentContainer.addEventListener("click", (event) => {
   // (Optional) Save state
   localStorage.setItem("commentContainerHTML", commentContainer.innerHTML);
 });
+
+
+
