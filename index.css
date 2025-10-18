@@ -1,7 +1,6 @@
 body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
-  padding: 2rem;
 }
 
 #mainContainer {
@@ -29,8 +28,14 @@ body {
 .card-header {
     display: flex;
     flex-direction: row-reverse;
-    gap: 2rem;
+    gap: 1rem;
+    justify-content: space-evenly;
 }
+
+.reply-header {
+  justify-content: space-around;
+}
+
 .card .name {
   font-weight: bold;
 }
@@ -104,7 +109,7 @@ body {
   resize: none;
 }
 
-#submit-button {
+.sub-button {
   padding: 0.5rem 1rem;
   background-color: blue;
   border: none;
@@ -126,13 +131,13 @@ body {
 
 
 .edit-textarea {
-  width: 100%;
+  /* width: 100%; */
   height: 60px;
   padding: 6px;
   font-size: 1rem;
   border-radius: 6px;
   border: 1px solid #ccc;
-  resize: vertical;
+  resize: none;
 }
 
 .updateBtn {
@@ -152,8 +157,14 @@ body {
 
 .reply-card {
   margin-top: 0.8rem;
+   margin-left: 3rem;
+
   background: #fff;
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.reply-box {
+  display: flex;
 }

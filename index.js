@@ -153,7 +153,7 @@ commentContainer.addEventListener("click", (event) => {
   const deleteButton = event.target.closest(".deleteBtn");
   if (!deleteButton) return; // if not a delete button, do nothing
 
-  const card = deleteButton.closest(".card");
+  const card = deleteButton.closest(".reply-card");
   if (card) {
     card.remove(); // deletes the entire comment card
   }
@@ -175,7 +175,7 @@ commentContainer.addEventListener("click", (event) => {
   replyBox.className = "reply-box";
   replyBox.innerHTML = `
     <textarea class="reply-input" placeholder="Write a reply..."></textarea>
-    <button class="send-reply-btn">Send</button>
+    <button class="send-reply-btn sub-button">Send</button>
   `;
 
   // Insert reply box right below the comment
