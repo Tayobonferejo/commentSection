@@ -1,11 +1,21 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: 0;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 #mainContainer {
     width: 60%;
-    margin: auto;
+    margin: 0 auto;
+    flex-grow: 1;
 }
 
 /* .card {
@@ -75,7 +85,7 @@ body {
 
 #formDiv {
   width: 60%;
-  margin: auto;
+  margin: 1rem auto;
   padding: 1rem 0;
 
   background: #fff;
@@ -157,7 +167,7 @@ body {
 
 .reply-card {
   margin-top: 0.8rem;
-   margin-left: 3rem;
+  margin-left: 3rem;
 
   background: #fff;
   padding: 1rem;
